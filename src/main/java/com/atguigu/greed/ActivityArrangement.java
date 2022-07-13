@@ -2,6 +2,9 @@ package com.atguigu.greed;
 
 import java.util.Arrays;
 
+/**
+ * 活动安排问题
+ */
 public class ActivityArrangement {
 
     public static class Activity{

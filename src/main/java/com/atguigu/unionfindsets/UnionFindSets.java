@@ -47,6 +47,9 @@ public class UnionFindSets{
         private HashMap<Node<V>,Integer> sizeMap ;
 
         public  UnionFindSetsStructure(V[] values){
+            nodes = new HashMap<>() ;
+            parent = new HashMap<>();
+            sizeMap = new HashMap<>() ;
             for (V value : values) {
                 Node node = new Node<>(value);
                 nodes.put(value,node);

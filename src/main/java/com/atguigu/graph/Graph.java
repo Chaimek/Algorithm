@@ -20,11 +20,11 @@ public class Graph {
 
     }
     public static class Edge{
-        public String weight;
+        public int weight;
         public Node from ;
         public Node to ;
 
-        public Edge(String weight, Node from, Node to) {
+        public Edge(int weight, Node from, Node to) {
             this.weight = weight;
             this.from = from;
             this.to = to;
@@ -32,9 +32,9 @@ public class Graph {
     }
 
     //顶点集合   key 为Node节点的 value属性值
-    private HashMap<String , Node> nodes  ;
+    public HashMap<String , Node> nodes  ;
     //边集合
-    private HashSet<Edge> edges ;
+    public HashSet<Edge> edges ;
 
     /**
      * matrix 表示边和对应的节点的信息
@@ -50,7 +50,7 @@ public class Graph {
         nodes = new HashMap<>();
         edges = new HashSet<>();
         for (int i = 0; i <matrix.length ; i++) {
-            String weight = matrix[i][0];
+            int weight = Integer.valueOf(matrix[i][0]);
             String fromValue = matrix[i][1];
             String toValue = matrix[i][2];
             if (!nodes.containsKey(fromValue)){
@@ -125,9 +125,14 @@ public class Graph {
         Stack<Node> stack =  new Stack<>() ;
         HashSet<Node> hashSet = new HashSet<>();
         dfs(head,stack,hashSet);
-        for (Map.Entry<String,Node> entry : nodes.entrySet() ){
-            if (!hashSet.contains(entry.getValue())){
-                dfs(entry.getValue(),stack,hashSet);
+//        for (Map.Entry<String,Node> entry : nodes.entrySet() ){
+//            if (!hashSet.contains(entry.getValue())){
+//                dfs(entry.getValue(),stack,hashSet);
+//            }
+//        }
+        for (Node node :nodes.values()){
+            if (!hashSet.contains(node)){
+                dfs(node,stack,hashSet);
             }
         }
     }
@@ -167,9 +172,41 @@ public class Graph {
         }
     }
 
-//    public static List<Node> topology(Graph graph){
-//
-//    }
+    /**
+     * 拓扑排序 --> 只针对有向图
+     * @param graph
+     * @return
+     */
+    public  List<Node> topology(Graph graph){
+        if (graph == null ){
+            return null ;
+        }
+        //key为节点 ，value为这个节点的入度
+        HashMap<Node , Integer> inMap = new HashMap<>() ;
+        //记录入度为0的节点
+        Queue<Node> inZeroQueue = new LinkedList<>();
+        for (Node cur : graph.nodes.values()){
+            inMap.put(cur,cur.in);
+            if (cur.in ==0){
+                inZeroQueue.add(cur);
+            }
+        }
+        List<Node> res = new ArrayList<>() ;
+        Node cur = null ;
+        while (!inZeroQueue.isEmpty()){
+           cur =  inZeroQueue.poll();
+           res.add(cur);
+           //消除cur的影响
+           for (Node next : cur.nexts){
+               //入度减一
+               inMap.put(next,inMap.get(next)-1);
+               if (inMap.get(next) == 0){
+                   inZeroQueue.add(next);
+               }
+           }
+        }
+        return res;
+    }
 
     public static void main(String[] args) {
         String[][] matrix = {

@@ -7,7 +7,7 @@ import java.util.Objects;
 
 public class AdaptiveHeapStructure<T> {
     private ArrayList<T> heap ;
-    private HashMap<T , Integer> indexMap;
+    private HashMap<T , Integer> indexMap; //记录 T 在 heap 中的下标 ---->  正因为能找到这个元素，所以能自适应
     private int heapSize ;
     private Comparator<? super T> comparator ;
 
