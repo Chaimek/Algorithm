@@ -18,6 +18,12 @@ public class Graph {
             edges = new ArrayList<>() ;
         }
 
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "value='" + value + '\'' +
+                    '}';
+        }
     }
     public static class Edge{
         public int weight;

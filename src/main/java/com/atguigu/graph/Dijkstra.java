@@ -54,6 +54,29 @@ public class Dijkstra {
         }
         return minNode ;
     }
+    public static void main(String[] args) {
+        String[][] matrix = {
+                {"1","B","C"},
+                {"2","A","B"},
+                {"1","A","C"},
+                {"7","A","D"},
+                {"4","C","D"},
+                {"1","C","A"},
+                {"10","E","F"},
 
+        };
+        Graph graph = new Graph(matrix);
+        DijkstraByHeap dijkstraByHeap  = new DijkstraByHeap() ;
+        HashMap<Node, Integer> a = dijkstraByHeap.dijkstraByHeap(graph.nodes.get("B"));
+        HashMap<Node, Integer> b = dijkstra(graph.nodes.get("B"));
+        for (Map.Entry<Node , Integer> entry : a.entrySet()){
+            System.out.print("<B , " + entry.getKey().value+">("+entry.getValue()+")  ");
+        }
+        System.out.println();
+        System.out.println("========");
+        for (Map.Entry<Node , Integer> entry : b.entrySet()){
+            System.out.print("<B , " + entry.getKey().value+">("+entry.getValue()+")  ");
+        }
+    }
 
 }

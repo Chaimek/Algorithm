@@ -1,4 +1,4 @@
-package com.atguigu.stack;
+package com.atguigu.sort.stack;
 
 import java.util.Stack;
 
